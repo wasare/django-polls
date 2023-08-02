@@ -7,7 +7,8 @@ from polls.models import Question, Choice
 # View index ... carregada para alguma rota (caminho)
 def index(request):
     # return HttpResponse('Olá... seja bem vindo a enquete')
-    return render(request, 'home.html')
+    context = {'titulo': 'Página Principal'}
+    return render(request, 'home.html', context)
 
 def sobre(request):
     return HttpResponse('Este é um app de enquete!')
