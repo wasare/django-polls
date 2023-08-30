@@ -16,7 +16,10 @@
                 {{ question.question_text }} &nbsp;
                 <a href="{% url 'poll_edit' pk=question.id %}" class="link-secondary">
                     Editar
-               </a>              
+                </a> &nbsp;
+                <a href="{% url 'poll_delete' pk=question.id %}" class="link-secondary">
+                    Excluir
+                </a>           
             </p>
         </article>
     {% endfor %}
