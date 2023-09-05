@@ -14,6 +14,9 @@
             <h2>Em: {{ question.pub_date|date:"d / m / Y" }}</h2>
             <p>
                 {{ question.question_text }} &nbsp;
+                <a href="{% url 'poll_show' pk=question.id %}" class="link-secondary">
+                    Ver
+                </a> &nbsp;
                 <a href="{% url 'poll_edit' pk=question.id %}" class="link-secondary">
                     Editar
                 </a> &nbsp;

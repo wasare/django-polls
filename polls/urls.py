@@ -18,6 +18,19 @@ urlpatterns = [
               views.QuestionDeleteView.as_view(),
               name="poll_delete"
     ),
+    # /polls/
+    path('pergunta/<int:pk>/show',
+        views.QuestionDetailView.as_view(),
+        name="poll_show"
+    ),
+    path('pergunta/all',
+         views.QuestionListView.as_view(),
+         name="polls_all"
+    ),
+    path('about-us',
+         views.SobreTemplateView.as_view(),
+         name="about_page"
+    ),
 
 ]
 
