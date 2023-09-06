@@ -72,6 +72,8 @@ class QuestionListView(ListView):
     model = Question
     template_name = 'polls/question_list.html'
     context_object_name = 'questions'
+    paginate_by = 3
+    ordering = ['-pub_date']
 
 class SobreTemplateView(TemplateView):
     template_name = 'polls/sobre.html'
