@@ -152,3 +152,6 @@ LOGIN_REDIRECT_URL = '/polls/pergunta/all'
 LOGOUT_REDIRECT_URL = '/polls/pergunta/all'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files/')
