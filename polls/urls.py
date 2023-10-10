@@ -31,6 +31,18 @@ urlpatterns = [
          views.SobreTemplateView.as_view(),
          name="about_page"
     ),
+    path('pergunta/<int:pk>/alternativa/add',
+        views.ChoiceCreateView.as_view(),
+        name="choice_add"
+    ),
+    path('alternativa/<int:pk>/edit',
+        views.ChoiceUpdateView.as_view(),
+        name="choice_edit"
+    ),
+    path('alternativa/<int:pk>/delete',
+        views.ChoiceDeleteView.as_view(),
+        name="choice_delete"
+    )
 
 ]
 
