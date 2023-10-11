@@ -42,7 +42,11 @@ urlpatterns = [
     path('alternativa/<int:pk>/delete',
         views.ChoiceDeleteView.as_view(),
         name="choice_delete"
-    )
+    ),
+    path('pergunta/<int:question_id>/alternativa/modal/add',
+         views.choice_create_modal,
+         name="choice_modal_add"
+    ),
 
 ]
 

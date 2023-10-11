@@ -17,6 +17,9 @@
             <a href="{% url 'choice_add' pk=object.id %}" class="btn btn-primary mb-5">
                 + Incluir Alternativa
             </a>
+            <button hx-get="{% url 'choice_modal_add' question_id=object.id %}" hx-target="#dialog" class="btn btn-primary mb-5">
+                + Alternativa (modal)
+            </button>
             <ul>
             {% for choice in question_choices %}
                 <li>
@@ -32,6 +35,10 @@
                 <li>Não existem alternativas para a pergunta</li>
             {% endfor %}
             </ul>
+        </div>
+        <!-- Placeholder for the modal -->
+        <div id="modal" class="modal fade">
+            <div id="dialog" class="modal-dialog" hx-target="this"></div>
         </div>
         {% endif %}
     </div>

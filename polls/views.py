@@ -1,3 +1,4 @@
+import json
 from django.forms.models import BaseModelForm
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -13,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 from polls.models import Question, Choice
+from polls.forms import ChoiceModelForm
 
 # View index ... carregada para alguma rota (caminho)
 def index(request):
@@ -167,3 +169,24 @@ class ChoiceDeleteView(LoginRequiredMixin, DeleteView):
         print(question_id)
         return reverse_lazy('poll_edit', kwargs={'pk': question_id})
 
+
+def choice_create_modal(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        form = ChoiceModelForm(request.POST)
+        form.instance.question = question
+        if form.is_valid():
+            form.save()
+            return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "choiceListChanged": None
+                    })
+                })
+    else:
+        form = ChoiceModelForm()
+        form.instance.question = question
+    return render(request, 'polls/choice_modal_form.html', {
+        'form': form,
+    })
