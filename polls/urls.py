@@ -42,7 +42,11 @@ urlpatterns = [
     path('alternativa/<int:pk>/delete',
         views.ChoiceDeleteView.as_view(),
         name="choice_delete"
-    )
+    ),
+    path('pergunta/<int:question_id>/vote',
+        views.poll_vote,
+        name="poll_vote"
+    ),
 
 ]
 

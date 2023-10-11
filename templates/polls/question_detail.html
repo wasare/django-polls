@@ -16,6 +16,25 @@
             </a>
         </p>
         <p>Data de publicação: {{ question.pub_date }}</p>
+        {% if question_choices %}
+        <div class="mt-5">
+            <h3>{{ question.question_text }}</h3>
+            <form method="post" action="{% url 'poll_vote' question_id=question.id %}">
+                {% csrf_token %}
+                {% for choice in question_choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="choice" value="{{ choice.id }}">
+                    <label class="form-check-label" for="choice_{{ choice.id }}">
+                        {{ choice.choice_text}}
+                    </label>
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Votar</button>
+            </form>
+        </div>
+        {% else %}
+        <h5>Não existem alternativas para a pergunta</h5>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

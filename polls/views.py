@@ -1,5 +1,5 @@
 from django.forms.models import BaseModelForm
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -95,6 +95,14 @@ class QuestionDetailView(DetailView):
     template_name = 'polls/question_detail.html'
     context_object_name = 'question'
 
+    def get_context_data(self, **kwargs):
+        context = super(QuestionDetailView, self).get_context_data(**kwargs)
+        question_id = self.kwargs.get('pk')
+        choices = Choice.objects.filter(question__pk=question_id)
+        context['question_choices'] = choices
+
+        return context
+
 class QuestionListView(ListView):
     model = Question
     template_name = 'polls/question_list.html'
@@ -167,3 +175,15 @@ class ChoiceDeleteView(LoginRequiredMixin, DeleteView):
         print(question_id)
         return reverse_lazy('poll_edit', kwargs={'pk': question_id})
 
+def poll_vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == "POST":
+        choice_vote_id = request.POST.get('choice')
+        choice = get_object_or_404(Choice, pk=choice_vote_id)
+        choice.votes += 1
+        choice.save()
+        messages.success(request, 'Voto registrado com sucesso!')
+    else:
+        messages.error(request, 'Pergunta não localizada!')
+    
+    return redirect(reverse_lazy('poll_show', kwargs={'pk': question.id }))
